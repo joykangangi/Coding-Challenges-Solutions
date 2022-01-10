@@ -1,10 +1,17 @@
+
 import java.util.regex.Pattern
 
-/*
+/*fun main() {
+    println(trimSentence("To crop or not to crop", 21))
+    println(trimSentence("Codility we test coders", 14))
+    println(trimSentence("Why not", 100))
+    println(trimSentence("the quick brown fox jumps over the lazy dog", 39))
+}
 fun trimSentence(sentence: String, finIndex: Int): String {
      val sLength = sentence.length
      return sentence.substring(0, sLength.coerceAtMost(finIndex))
   }
+
  */
 
 /**
@@ -40,6 +47,10 @@ fun trimSentence(sentence: String, finIndex: Int): String {
     return sentence.substring(0, spaces)
   */
 }
+
+
+
+
 
 
 
