@@ -1,5 +1,6 @@
 
 import java.util.regex.Pattern
+//Create a function, taking a sentence and index as the arguments. A sentence should be truncated(round down to the nearest word) at the given index
 
 /*fun main() {
     println(trimSentence("To crop or not to crop", 21))
