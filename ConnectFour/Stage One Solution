@@ -1,0 +1,39 @@
+fun main() {
+    println("Connect Four")
+    println("First player's name:")
+    val player1 = readLine()!!
+    println("Second player's name:")
+    val player2 = readLine()!!
+    toRepeat(player1,player2)
+}
+
+fun toRepeat(player1:String, player2: String) {
+    println("Set the board dimensions (Rows x Columns)")
+    println("Press Enter for default (6 x 7)")
+    val dimInput = readLine()!!.lowercase().trim()
+    val defaultDim = "6 x 7"
+
+    if (isNumeric1(dimInput)) {
+        println("$player1 VS $player2\n${dimInput[0]} x ${dimInput.last()} board")
+    }
+    else if (dimInput.isEmpty()) {
+        println("$player1 VS $player2\n$defaultDim board")
+    }
+    else if ( !(isNumeric1(dimInput)) && dimInput.first().digitToInt() !in 5..9 ){
+        println("Board rows should be from 5 to 9")
+        toRepeat(player1,player2)
+    }
+    else if ( !(isNumeric1(dimInput)) && dimInput.last().digitToInt() !in 5..9 ) {
+        println("Board columns should be from 5 to 9")
+        toRepeat(player1,player2)
+    }
+    else {
+        println("Invalid input")
+        toRepeat(player1,player2)
+    }
+}
+
+fun isNumeric1(toCheck: String): Boolean {
+    val regex = ".?[5-9].?x.?[5-9].?".toRegex()
+    return toCheck.matches(regex)
+}
