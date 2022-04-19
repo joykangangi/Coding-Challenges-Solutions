@@ -1,3 +1,5 @@
+package connectfour
+
 fun main() {
     println("Connect Four")
     println("First player's name:")
@@ -10,30 +12,45 @@ fun main() {
 fun toRepeat(player1:String, player2: String) {
     println("Set the board dimensions (Rows x Columns)")
     println("Press Enter for default (6 x 7)")
-    val dimInput = readLine()!!.lowercase().trim()
-    val defaultDim = "6 x 7"
+    var dimInput = readLine()
+    dimInput = dimInput!!.trim().lowercase().replace("\\s+".toRegex(), " ")
 
-    if (isNumeric1(dimInput)) {
-        println("$player1 VS $player2\n${dimInput[0]} x ${dimInput.last()} board")
+    val defaultDim = "6 X 7"
+
+    if (myRegex1(dimInput)) {
+        println("$player1 VS $player2\n${dimInput[0]} X ${dimInput.last()} board")
     }
     else if (dimInput.isEmpty()) {
         println("$player1 VS $player2\n$defaultDim board")
     }
-    else if ( !(isNumeric1(dimInput)) && dimInput.first().digitToInt() !in 5..9 ){
+    else if(!(myRegex2(dimInput))){
+        println("Invalid input")
+        toRepeat(player1,player2)
+    }
+    else if ( ((dimInput.first()).isDigit()) && (dimInput.first().digitToInt() !in 5..9 ) ){
         println("Board rows should be from 5 to 9")
         toRepeat(player1,player2)
     }
-    else if ( !(isNumeric1(dimInput)) && dimInput.last().digitToInt() !in 5..9 ) {
+    else if ( ((dimInput.last()).isDigit()) && (dimInput.last().digitToInt() !in 5..9 )) {
         println("Board columns should be from 5 to 9")
         toRepeat(player1,player2)
     }
-    else {
+    else{
         println("Invalid input")
         toRepeat(player1,player2)
     }
 }
 
-fun isNumeric1(toCheck: String): Boolean {
-    val regex = ".?[5-9].?x.?[5-9].?".toRegex()
+fun myRegex1(toCheck: String): Boolean {
+    val regex = buildString {
+    append("[5-9].?x.?[5-9]")
+    }.toRegex()
+    return toCheck.matches(regex)
+}
+
+fun myRegex2(toCheck: String): Boolean {
+    val regex = buildString {
+        append(".?..?x.?..?")
+    }.toRegex()
     return toCheck.matches(regex)
 }
