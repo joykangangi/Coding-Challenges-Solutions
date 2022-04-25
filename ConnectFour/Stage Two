@@ -1,0 +1,16 @@
+
+ fun printBoard(rows: Int = 6, columns: Int = 7) {
+    for (i in 1..columns) {
+        print(" $i")
+    }
+    println()
+    for (i in 1..rows){
+    repeat(columns+1){
+        print("| ")
+    }
+        println()
+    }
+    repeat((columns*2)+1) {
+        print("=")
+    }
+}
