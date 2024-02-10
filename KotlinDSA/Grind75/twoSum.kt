@@ -18,7 +18,7 @@ fun main() {
 }
 
 
-//brute-force
+//brute-force; tc=0(n^2); sc=0(1)
 fun twoSum(num: IntArray, target: Int): IntArray {
     val sumArray = IntArray(size = 2)
 
@@ -33,3 +33,20 @@ fun twoSum(num: IntArray, target: Int): IntArray {
 
     return sumArray
 }
+
+//use map to find compliment value at each iteration; time complexities = 0(n), Space = 0(n)
+fun twoSum2(num: IntArray, target: Int): IntArray {
+    val numMap = mutableMapOf<Int, Int>()//value=key, index=value
+
+    num.forEachIndexed { index, number ->
+        val diff = target - number
+        val indexOfDiff = numMap[diff] //check if diff exist in map
+        if (indexOfDiff != null) {
+            return intArrayOf(indexOfDiff, index)
+        }
+        numMap[number] = index
+        println(numMap)
+    }
+    throw IllegalArgumentException("No solution found")
+}
+
