@@ -50,3 +50,46 @@ fun twoSum2(num: IntArray, target: Int): IntArray {
     throw IllegalArgumentException("No solution found")
 }
 
+// you have target, and want to find x,y. What you do is target - x = y', if y'==y then you've found what you were looking for
+fun twoSum3(num: IntArray, target: Int): IntArray {
+    val numMap = mutableMapOf<Int, Int>()//value=key, index=value
+
+    num.forEachIndexed { index, number ->
+        val indexOfDiff = numMap[number] // index is a value in the map
+
+        if (indexOfDiff != null) {  //Before adding a difference to the map, the function checks if that difference is already present, preventing the same index from being used again
+            return intArrayOf(indexOfDiff, index)
+        }
+        numMap[target - number] = index
+    }
+    return intArrayOf()
+}
+
+
+/** Given an integer array nums, return all the triplets [nums[i], nums[j], nums[k]]
+ *  such that i != j, i != k, and j != k, and nums[i] + nums[j] + nums[k] == 0.
+Notice that the solution set must not contain duplicate triplets.
+Input: nums = [-1,0,1,2,-1,-4]
+Output: [[-1,-1,2],[-1,0,1]]
+ */
+fun findThreeSum(nums: IntArray): List<List<Int>> {
+    if (nums.size < 3) return emptyList()
+
+    var resp: MutableSet<List<Int>> = mutableSetOf()
+    nums.sort()
+
+    for(curr in 0..nums.size - 2) {
+        var left = curr + 1
+        var right = nums.size - 1
+        while (left < right) {
+            var sum = nums[curr] + nums[left] + nums[right]
+            when {
+                (sum == 0) -> resp.add(listOf(nums[curr], nums[left++], nums[right--])) // increase left and decrease right
+                sum < 0 -> left++ // increase left to increase sum
+                sum > 0 -> right-- // decrease right to decrease sum
+            }
+        }
+    }
+    return resp.toList()
+}
+
